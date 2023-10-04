@@ -1,3 +1,8 @@
+// select the start-game button
+const startButton = document.querySelector('#start-game') ;
+startButton.addEventListener('click', game) ;
+
+
 function getComputerChoice() {
  
     let choice = ["rock", "scissors", "paper"] ;
@@ -22,6 +27,7 @@ function getPlayerChoice() {
     return playerChoice ;
 
 }
+
 
 function playRound() {
     
@@ -51,14 +57,81 @@ function playRound() {
 
 }
 
-function game() {    
+
+
+
+
+
+
+
+
+
+
+
+function createWelcomeText() {    
+
+    // 1) selects game-container div
+    const gameContainer = document.querySelector('.game-container') ;
+    
+    
+    // 2) creates text container for the welcoming text
+    const welcomeContainer = document.createElement('p') ;
+    welcomeContainer.classList.toggle('text-container') ;
+
+    // a) creates text inside container
+    const welcomeText1 = document.createElement('div') ;
+    welcomeText1.textContent = "Welcome, welcome! The UI may suck, but it keeps the score!"
+    welcomeContainer.appendChild(welcomeText1) ;
+
+    // b) now, what's a webpage without its creator lmao
+    const welcomeText2 = document.createElement('div') ;
+    welcomeText2.textContent = "A silly page created by yours truly, fishonttree"
+    welcomeContainer.appendChild(welcomeText2) ;
+
+    // c) append welcome text into game-container
+    gameContainer.appendChild(welcomeContainer) ;
+}
+
+
+function createGameText() {
+
+    // 1) create text container for the game's text
+    const gameTextContainer = document.createElement('p') ;
+    gameTextContainer.classList.toggle('game-text-container') ;
+
+    // retrieve score and game state text
+    getScoreText() ;
+    getStateText() ;
+
+}
+
+
+function getScoreText(playerScore, computerScore) {
+    
+    const scoreText = document.createElement('div') ;
+    welcomeText1.textContent = `The your score against the computer is
+    ${playerScore} - ${computerScore}`
+    .appendChild(welcomeText1) ;
+
+}
+
+
+function getStateText() {
+
+}
+
+
+function game() {
+
+    createGameText() ;
+
     let playerScore = 0 ;
     let computerScore = 0 ;
 
     let playing = "y" ;
 
     while (playing == "y") {
-        
+
         console.log(`The current score is ${playerScore} - ${computerScore}!`)
 
         roundCount = 0 ;
@@ -95,13 +168,3 @@ function game() {
         console.log("Alrighty, remember to click the button if you wanna play again!") ;
     }
 }
-
-const button = document.querySelector("button") ;
-
-function startGame() {
-    const startTrigger = document.querySelector("#start-game") ;
-    alert("Hey hey!")
-    game() ;
-}
-
-button.addEventListener("click", startGame) ;

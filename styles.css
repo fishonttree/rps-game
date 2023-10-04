@@ -1,0 +1,64 @@
+* {
+    font-family:'Times New Roman', Times, serif;
+    background-color: lightblue;
+}
+
+.title {
+    margin: 10px 0px;
+    background-color: azure;
+    text-align: center;
+    border: 2px dotted grey;
+    padding: 10px;
+}
+
+.game-container {
+    background-color: beige;
+    padding: 3px 0px;
+    display: flex;
+}
+
+.flex-text,
+.subtext {
+    background-color: beige;
+}
+
+.flex-text {
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtext {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.flex-grow-container div {
+    border-color: 4px solid red;
+    height: 100%;
+    flex: 1;
+}
+
+.flex-grow-container .two {
+    flex: 2;    
+}
+
+b,
+i {
+    display: inline;
+    background-color: beige;
+}
+
+div {
+    padding: 5px 0;
+    background-color: beige;
+    display: block;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+button {
+    background-color: beige;
+}

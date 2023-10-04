@@ -8,17 +8,45 @@
         initial-scale=1.0">
         
         <title>Rock, Scissors, Paper!</title>
+        
+        <link rel="stylesheet" href="styles.css">
+
+        <script src="script-function/rps.js" defer></script>
     </head>
 
     <body>
-        <p>
-            This is RPS! Best of 5! Inspect Element -> Console -> Click the Button!
-        </p>
+        <h2 class="title">
+            Rock, Paper, Scissors!
+        </h2>
 
-        <button>Start New Game!</button>
-        <div id="start-game"></div>
-        <script src="rps.js"></script>
+        <button id="start-game">Start New Game!</button>
 
+        <div class="game-container">
+
+
+        </div>
+
+    <!-- Okie dokes, what's the plan here? 
+    
+        1. God, uh...
+        2. Button to start the game function (helps with "restarting")
+        
+        3. Starting the game's gonna toggle some elements into the DOM,
+        producing some text and layout for the game to proceed in
+        
+        4. There will be three buttons for the options the user can click
+        
+        5. Clicking either of the three will input their corresponding 
+        'choice' value into the game function. The game function should 
+        evaluate the game state and return it through appending some text 
+        element into the DOM.
+
+        6. Best of 5 or first to 5 - either way, there should be the 
+        option of replaying the game. By responding "no", the game UI 
+        should toggled off, leaving the button to start
+
+-->        
+        
     </body>
 
 </html>
