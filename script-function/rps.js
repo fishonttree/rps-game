@@ -1,16 +1,5 @@
 game() ;
 
-// selects the restart button
-const restartButton = document.querySelector('#restart') ;
-
-// restart game upon clicking restart button
-restartButton.addEventListener('click', () => {
-
-    game() ;
-
-}) ;
-
-
 function game() {
 
     // selects the game container
@@ -20,20 +9,19 @@ function game() {
     // selects the game text container
     const gameTextContainer = document.querySelector('.game-text-container') ;
     
+
     // creates text for round number
     let roundCount = 1 ;
 
     const roundNumber = document.querySelector('#round-number') ;
     roundNumber.textContent = `Round ${roundCount}` ;
-    
 
     // creates score text
-    let playerScore = 0 ;
-    let computerScore = 0 ;
+    playerScore = 0 ;
+    computerScore = 0 ;
         
     const scoreText = document.querySelector('#score-text') ;
     scoreText.textContent = getScoreText(playerScore, computerScore) ;
-
 
     // add state text and its initial text
     const stateText = document.querySelector('#state-text') ;
@@ -43,6 +31,11 @@ function game() {
     let computerChoice = "" ;
     let playerChoice = "" ;
 
+    // creates ending text
+    const endText = document.querySelector('#final-score') ;
+    endText.textContent = "" ;
+
+
     // selects rock, scissors, paper
     const optionGroup = document.querySelectorAll(
         "button#rock, button#scissors, button#paper"
@@ -51,6 +44,7 @@ function game() {
     // add event listeners for rock, scissors, paper => get player's choice
     optionGroup.forEach((button) => {
         button.addEventListener('click', function (clickEvent) {
+            
             // pass player's choice
             playerChoice = clickEvent.target.id ;
             
@@ -140,9 +134,9 @@ function getEndText(playerScore, computerScore) {
     const endText = document.querySelector('#final-score') ;
 
     if (playerScore > computerScore) {
-        endText.textContent = `You've won by ${playerScore} - ${computerScore}! The restart button's down there!` ;
+        endText.textContent = `You've won by ${playerScore} - ${computerScore}!` ;
     } else {
-        endText.textContent = `You've lost by ${playerScore} - ${computerScore}... The restart button's down there, by the way.` ;
+        endText.textContent = `You've lost by ${playerScore} - ${computerScore}...` ;
     }
 
 }
