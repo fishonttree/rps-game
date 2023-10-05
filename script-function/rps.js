@@ -3,6 +3,146 @@ const startButton = document.querySelector('#start-game') ;
 startButton.addEventListener('click', game) ;
 
 
+function game() {
+
+    // selects the game container
+    const gameBox = document.querySelector('#game-container') ;
+
+    // creates game content inside container
+    const gameContainer = document.createElement('div') ;
+    gameContainer.classList.toggle('game-container') ;
+
+    // creates game text container
+    const gameTextContainer = document.createElement('p') ;
+    gameContainer.appendChild(gameTextContainer) ;
+
+    let playerScore = 0 ;
+    let computerScore = 0 ;
+
+    // creates game score container
+    const scoreText = document.createElement('div') ;
+    scoreText.textContent = getScoreText(playerScore, computerScore) ;
+        
+    // creates game state container
+    const stateText = document.createElement('div');
+    stateText.textContent = "Waiting on your play!"
+
+    // creates player choice buttons
+    const playerButtonContainer = createPlayerButton() ;
+    gameContainer.appendChild(playerButtonContainer, stateText) ;
+
+    // append game content into container
+    gameBox.appendChild(gameContainer) ;
+
+    let playing = "y" ;
+
+    while (playing == "y") {
+
+        roundCount = 1 ;
+        playerScore = 0 ;
+        computerScore = 0 ;
+
+        while ((playerScore < 5) && (computerScore < 5)) {
+            
+            let computerChoice = "" ; 
+            let playerChoice = "" ;
+            let state = ""
+            
+            computerChoice = getComputerChoice() ;
+            playerChoice = getPlayerChoice() ;
+
+            state = getState(playerChoice, computerChoice) ;
+
+
+            // create updateStateText
+            stateText.textContent = updateStateText(playerChoice, computerChoice, state) ;
+
+            if (gameState === "win") {
+                playerScore += 1 ;
+            }   else if (gameState === "lose") {
+                computerScore += 1 ;
+            }
+
+            roundCount += 1 ;
+
+        }
+
+        let endText = getEndText(playerScore, computerScore) ;
+
+        playing = prompt("Wanna keep playing? [y/n]").toLowerCase() ;
+        if (["y", "n"].indexOf(playing) === -1) {
+            playing = prompt("So... wanna keep playing? [y/n]").toLowerCase() ;
+        }
+
+    }
+
+    if (playing == "n") {
+        console.log("Alrighty, remember to click the button if you wanna play again!") ;
+    }
+}
+
+
+function getScoreText(playerScore, computerScore) {
+    
+    const scoreText = document.createElement('div') ;
+    scoreText.textContent = `The your score against the computer is
+    ${playerScore} - ${computerScore}`
+
+    return scoreText ;
+
+}
+
+
+function getState(playerChoice, computerChoice) {
+
+    let winningState = {"rock": "scissors", "scissors": "paper", "paper": "rock"}
+
+    let gameState = "" ;
+
+    if (computerChoice == playerChoice) {
+        gameState = "draw" ;
+    } else if (winningState[playerChoice] !== computerChoice) {
+        gameState = "lose" ;
+    } else if (winningState[playerChoice] === computerChoice) {
+        gameState = "win" ;
+    }
+    
+    return gameState ;
+
+}
+
+function getStateText(playerChoice, computerChoice, gameState) {
+
+    const stateText = document.createElement('div') ;
+
+    if (gameState = "draw") {
+        stateText.textContent = "It's a draw!" ;
+    } else if (gameState = "lose") {
+        stateText.textContent = `You lost! Your ${playerChoice} didn't beat the computer's ${computerChoice}...` ;
+    } else if (gameState = "win") {
+        stateText.textContent = `You won! Your ${playerChoice} has beaten the computer's ${computerChoice}!`
+    }
+
+    return stateText ;
+
+}
+
+
+function getEndText(playerScore, computerScore) {
+
+    const endText = document.createElement('div') ;
+
+    if (playerScore > computerScore) {
+        endText.textContent = `You've won by ${playerScore} - ${computerScore}!` ;
+    } else {
+        endText.textContent = `You've lost by ${playerScore} - ${computerScore}...` ;
+    }
+
+    return endText ;
+
+}
+
+
 function getComputerChoice() {
  
     let choice = ["rock", "scissors", "paper"] ;
@@ -11,160 +151,46 @@ function getComputerChoice() {
     return choice[choiceIndex] ;
 }
 
+
 function getPlayerChoice() {
     
     let choice = ["rock", "scissors", "paper"] ;
-    
-    let playerChoice = prompt("Will it be rock, scissors, or paper?") ;
-    playerChoice = playerChoice.toLowerCase().trim() ;
 
-
-    while (choice.indexOf(playerChoice) == -1) {
-        playerChoice = prompt("Maybe you typed it wrong? Rock, scissors, or paper - it's case-insensitive!")
-        playerChoice = playerChoice.toLowerCase() ;
-    }
+    let playerChoice = ''
 
     return playerChoice ;
 
 }
 
 
-function playRound() {
+function createPlayerButton() {
+
+    // create container for option buttons
+    const optionContainer = document.createElement('div') ;
+    optionContainer.classList.toggle("flex-test") ;
+
+    const rockContainer = document.createElement('div') ;
+    rockContainer.classList.toggle("subtext") ;
+    const rockButton = document.createElement('button') ;
+    rockButton.textContent = "rock" ;
+    rockContainer.appendChild(rockButton) ;
+
+    const scissorsContainer = document.createElement('div') ;
+    scissorsContainer.classList.toggle("subtext") ;
+    const scissorsButton = document.createElement('button') ;
+    rockButton.textContent = "scissors" ;
+    scissorsContainer.appendChild(scissorsButton) ;
     
-    let computerChoice = getComputerChoice() ;
-    let playerChoice = getPlayerChoice() ;
+    const paperContainer = document.createElement('div') ;
+    paperContainer.classList.toggle("subtext") ;
+    const paperButton = document.createElement('button') ;
+    paperButton.textContent = "paper" ;
+    paperContainer.appendChild(paperButton) ;
 
-    let winningState = {"rock": "scissors", "scissors": "paper", "paper": "rock"}
+    optionContainer.appendChild(rockContainer) ;
+    optionContainer.appendChild(scissorsButton) ;
+    optionContainer.appendChild(paperButton) ;
 
-    let resultConsole = "" ;
+    return optionContainer ;
 
-    let gameState = "" ;
-
-    if (computerChoice == playerChoice) {
-        resultConsole = "It's a draw!" ;
-        gameState = "draw" ;
-    } else if (winningState[playerChoice] !== computerChoice) {
-        resultConsole = `You lost! Your ${playerChoice} didn't beat the ${computerChoice}...` ;
-        gameState = "lose" ;
-    } else if (winningState[playerChoice] === computerChoice) {
-        resultConsole = `You won! Your ${playerChoice} has beaten the ${computerChoice}!` ;
-        gameState = "win" ;
-    }
-
-    console.log(resultConsole) ;
-
-    return gameState ;
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-function createWelcomeText() {    
-
-    // 1) selects game-container div
-    const gameContainer = document.querySelector('.game-container') ;
-    
-    
-    // 2) creates text container for the welcoming text
-    const welcomeContainer = document.createElement('p') ;
-    welcomeContainer.classList.toggle('text-container') ;
-
-    // a) creates text inside container
-    const welcomeText1 = document.createElement('div') ;
-    welcomeText1.textContent = "Welcome, welcome! The UI may suck, but it keeps the score!"
-    welcomeContainer.appendChild(welcomeText1) ;
-
-    // b) now, what's a webpage without its creator lmao
-    const welcomeText2 = document.createElement('div') ;
-    welcomeText2.textContent = "A silly page created by yours truly, fishonttree"
-    welcomeContainer.appendChild(welcomeText2) ;
-
-    // c) append welcome text into game-container
-    gameContainer.appendChild(welcomeContainer) ;
-}
-
-
-function createGameText() {
-
-    // 1) create text container for the game's text
-    const gameTextContainer = document.createElement('p') ;
-    gameTextContainer.classList.toggle('game-text-container') ;
-
-    // retrieve score and game state text
-    getScoreText() ;
-    getStateText() ;
-
-}
-
-
-function getScoreText(playerScore, computerScore) {
-    
-    const scoreText = document.createElement('div') ;
-    welcomeText1.textContent = `The your score against the computer is
-    ${playerScore} - ${computerScore}`
-    .appendChild(welcomeText1) ;
-
-}
-
-
-function getStateText() {
-
-}
-
-
-function game() {
-
-    createGameText() ;
-
-    let playerScore = 0 ;
-    let computerScore = 0 ;
-
-    let playing = "y" ;
-
-    while (playing == "y") {
-
-        console.log(`The current score is ${playerScore} - ${computerScore}!`)
-
-        roundCount = 0 ;
-        playerScore = 0 ;
-        computerScore = 0 ;
-
-        while (roundCount < 5) {
-            let gameState = playRound() ;
-            if (gameState === "win") {
-                playerScore += 1 ;
-            }
-            else if (gameState === "lose") {
-                computerScore += 1 ;
-            }
-            console.log(`Your score against the computer is ${playerScore} - ${computerScore}`)
-            roundCount += 1 ;
-        }
-
-        if (playerScore == computerScore) {
-            alert(`It's a draw! Your score to the computer's is ${playerScore} - ${computerScore}!`) ;
-        } else if (playerScore > computerScore) {
-            alert(`You've won by ${playerScore} - ${computerScore}!`) ;
-        } else if (computerScore > playerScore) {
-            alert(`You've lost by ${playerScore} - ${computerScore}!`) ; 
-        }
-
-        playing = prompt("Wanna keep playing? [y/n]").toLowerCase() ;
-        if (["y", "n"].indexOf(playing) === -1) {
-            playing = prompt("So... wanna keep playing? [y/n]").toLowerCase() ;
-        }
-    }
-
-    if (playing == "n") {
-        console.log("Alrighty, remember to click the button if you wanna play again!") ;
-    }
 }

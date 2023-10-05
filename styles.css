@@ -3,12 +3,29 @@
     background-color: lightblue;
 }
 
+#game-container {
+    background-color: lightblue;
+}
+
 .title {
     margin: 10px 0px;
     background-color: azure;
     text-align: center;
     border: 2px dotted grey;
     padding: 10px;
+}
+
+.subtitle {
+    margin: 10px 0px;
+    text-align: center;
+    padding: 10px;
+    background-color: lightblue;
+}
+
+.text-container {
+    background-color: beige;
+    padding: 3px 0px;
+    display: flex;
 }
 
 .game-container {
@@ -62,3 +79,4 @@ img {
 button {
     background-color: beige;
 }
+
