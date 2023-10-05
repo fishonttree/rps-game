@@ -7,6 +7,32 @@
     background-color: lightblue;
 }
 
+#score-text {
+    text-align: center ;
+}
+
+#state-text {
+    text-align: center ;
+}
+
+#round-number {
+    text-align: center ;
+}
+
+#restart {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#restart-button {
+    background-color: lightblue;
+}
+
+#final-score {
+    text-align: center;
+}
+
 .title {
     margin: 10px 0px;
     background-color: azure;
@@ -39,14 +65,14 @@
     background-color: beige;
 }
 
-.flex-text {
+.option-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 .subtext {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 .flex-grow-container div {
